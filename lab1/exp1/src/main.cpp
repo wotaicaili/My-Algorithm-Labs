@@ -31,15 +31,15 @@ void MatrixChain(int n, long long p[], long long **m, long long **s)
         }
 }
 
-void print_scheme(int i, int j, long long **s)
+void PrintScheme(int i, int j, long long **s)
 {
     if (i == j)
         fresult << "A" << i;
     else
     {
         fresult << "(";
-        print_scheme(i, s[i][j], s);
-        print_scheme(s[i][j] + 1, j, s);
+        PrintScheme(i, s[i][j], s);
+        PrintScheme(s[i][j] + 1, j, s);
         fresult << ")";
     }
 }
@@ -77,9 +77,9 @@ int main()
         MatrixChain(n, p, m, s);
         end = clock();
         fresult << m[1][n] << endl;
-        print_scheme(1, n, s);
+        PrintScheme(1, n, s);
         fresult << endl;
-        ftime << double(end - start) / CLOCKS_PER_SEC << "s" << endl;
+        ftime << long(end - start) / (CLOCKS_PER_SEC / 1000000) << "us" << endl;
     }
     fin.close();
     fresult.close();

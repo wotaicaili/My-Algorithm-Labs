@@ -8,9 +8,9 @@
 using namespace std;
 ifstream fin;
 ofstream fresult, ftime;
-vector<string> veclcs; // 保存LCS
+vector<string> veclcs;
 
-void lcs(int n, string X, string Y, int **c)
+void Lcs(int n, string X, string Y, int **c)
 {
     c[0][0] = 0;
     for (int i = 1; i <= n; ++i)
@@ -30,15 +30,13 @@ void lcs(int n, string X, string Y, int **c)
     }
 }
 
-void traceBack(int i, int j, string X, string Y, int **c, string lcs_str)
+void Trace(int i, int j, string X, string Y, int **c, string Lcs_str)
 {
-    if (i == 0 || j == 0)
-        veclcs.push_back(lcs_str);
-    else
+    while (i != 0 && j != 0)
     {
         if (X[i - 1] == Y[j - 1])
         {
-            lcs_str = X[i - 1] + lcs_str;
+            Lcs_str = X[i - 1] + Lcs_str;
             --i;
             --j;
         }
@@ -48,14 +46,15 @@ void traceBack(int i, int j, string X, string Y, int **c, string lcs_str)
                 --i;
             else if (c[i - 1][j] < c[i][j - 1])
                 --j;
-            else // 相等的情况
+            else
             {
-                traceBack(i - 1, j, X, Y, c, lcs_str);
-                traceBack(i, j - 1, X, Y, c, lcs_str);
+                Trace(i - 1, j, X, Y, c, Lcs_str);
+                Trace(i, j - 1, X, Y, c, Lcs_str);
                 return;
             }
         }
     }
+    veclcs.push_back(Lcs_str);
 }
 
 int main()
@@ -69,44 +68,35 @@ int main()
     }
     ftime.open("../output/time.txt", ios::out);
     int count = 0;
-
-    int n;
-    //if (!(fin >> n))
-    //break;
-    cout << n << endl;
-    count++;
-    cout << count << endl;
-    fresult.open("../output/result_" + std::to_string(count) + ".txt");
-    string X, Y;
-    fin >> X;
-    fin >> Y;
-
-    int **c = new int *[n + 1];
-    for (int i = 0; i <= n; i++)
-        c[i] = new int[n + 1];
-
-    start = clock();
-    lcs(n, X, Y, c);
-    end = clock();
-    ftime << double(end - start) / CLOCKS_PER_SEC << "s" << endl;
-
-    for (int i = 0; i < n + 1; i++)
-        for (int j = 0; j < n + 1; j++)
-        {
-            cout << c[i][j] << " ";
-            if (j == n)
-                cout << endl;
-        }
-
-    string lcs_str;
-    traceBack(n, n, X, Y, c, lcs_str);
-    fresult << veclcs.size() << endl;
-    for (int i = 0; i < veclcs.size(); i++)
+    while (!fin.eof())
     {
-        fresult << veclcs[i] << endl;
+        int n;
+        if (!(fin >> n))
+            break;
+        count++;
+        fresult.open("../output/result_" + std::to_string(count) + ".txt");
+        string X, Y;
+        fin >> X;
+        fin >> Y;
+
+        int **c = new int *[n + 1];
+        for (int i = 0; i <= n; i++)
+            c[i] = new int[n + 1];
+
+        start = clock();
+        Lcs(n, X, Y, c);
+        end = clock();
+        ftime << long(end - start) / (CLOCKS_PER_SEC / 1000000) << "us" << endl;
+        string Lcs_str;
+        Trace(n, n, X, Y, c, Lcs_str);
+        fresult << veclcs.size() << endl;
+        for (int i = 0; i < veclcs.size(); i++)
+        {
+            fresult << veclcs[i] << endl;
+        }
+        veclcs.clear();
+        fresult.close();
     }
-    veclcs.clear();
-    fresult.close();
 
     return 0;
 }
