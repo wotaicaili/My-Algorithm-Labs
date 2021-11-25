@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include <iomanip>
 
 using namespace std;
 ifstream fin;
@@ -59,7 +60,6 @@ int main()
 
     while (!fin.eof())
     {
-
         int n;
         if (!(fin >> n))
             break;
@@ -80,6 +80,18 @@ int main()
         PrintScheme(1, n, s);
         fresult << endl;
         ftime << long(end - start) / (CLOCKS_PER_SEC / 1000000) << "us" << endl;
+
+        if (n == 5)
+        {
+            for (int i = 1; i <= n; i++)
+                for (int j = 1; j <= n; j++)
+                {
+                    cout << setiosflags(ios::left) << setw(15);
+                    cout << m[i][j] << " ";
+                    if (j == n)
+                        cout << endl;
+                }
+        }
     }
     fin.close();
     fresult.close();
