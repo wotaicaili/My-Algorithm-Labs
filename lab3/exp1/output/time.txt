@@ -1,8 +1,8 @@
-input11.txt: 4us
-input12.txt: 3us
-input21.txt: 14us
-input22.txt: 14us
-input31.txt: 115us
-input32.txt: 144us
-input41.txt: 839us
-input42.txt: 908us
+input11.txt: 61us
+input12.txt: 38us
+input21.txt: 1009us
+input22.txt: 964us
+input31.txt: 27962us
+input32.txt: 23317us
+input41.txt: 599330us
+input42.txt: 637157us

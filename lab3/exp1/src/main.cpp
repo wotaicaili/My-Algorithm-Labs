@@ -44,23 +44,37 @@ int main()
             memset(road, 0, sizeof(road));
             for (int i = 0; i < N[a]; i++)
                 dis[i] = INT_MAX;
+            dis[0] = 0;
 
             //读取输入
             for (int i = 0; i < N[a]; i++)
                 for (int j = 0; j < N[a]; j++)
                 {
-                    if (i == j)
+                    int tempt;
+                    fscanf(fin, "%d,", &tempt);
+                    if (tempt != 0)
+                        graph[i][j] = tempt;
+                    else if (i == j)
                         graph[i][j] = 0;
                     else
-                    {
-                        int tempt;
-                        fscanf(fin, "%d,", &tempt);
-                        if (tempt != 0)
-                            graph[i][j] = tempt;
-                        else
-                            graph[i][j] = INT_MAX;
-                    }
+                        graph[i][j] = INT_MAX;
                 }
+
+            /*
+            if (a == 1 && b == 1)
+            {
+                for (int i = 0; i < N[a]; i++)
+                    for (int j = 0; j < N[a]; j++)
+                    {
+                        if (graph[i][j] != INT_MAX)
+                            cout << graph[i][j] << " ";
+                        else
+                            cout << "X ";
+                        if (j == N[a] - 1)
+                            cout << endl;
+                    }
+            }
+            */
 
             start = clock();
             // bellman_ford算法
@@ -93,20 +107,20 @@ void bellman_ford(int n)
 // Bellman_Ford算法
 // input:结点数目
 {
-
     dis[0] = 0; // 初始可达0
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
+    for (int k = 0; k < n; k++)
+        for (int i = 0; i < n; i++)
         {
-            //进行松弛操作
-            if (graph[i][j] != INT_MAX && dis[i] != INT_MAX && dis[j] > dis[i] + graph[i][j])
+            for (int j = 0; j < n; j++)
             {
-                dis[j] = dis[i] + graph[i][j];
-                road[j] = i;
+                //进行松弛操作
+                if (graph[i][j] != INT_MAX && dis[i] != INT_MAX && dis[j] > dis[i] + graph[i][j])
+                {
+                    dis[j] = dis[i] + graph[i][j];
+                    road[j] = i;
+                }
             }
         }
-    }
 }
 
 void output_road(int j, int flag)
