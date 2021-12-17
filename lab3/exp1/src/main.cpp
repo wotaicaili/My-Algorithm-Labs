@@ -2,7 +2,7 @@
  * @Author       : zongzi
  * @Date         : 2021-12-16 23:04:26
  * @LastEditors  : zongzi
- * @LastEditTime : 2021-09-20 18:00:34
+ * @LastEditTime : 2021-12-20 18:00:34
  */
 #include <iostream>
 #include <fstream>
@@ -48,7 +48,19 @@ int main()
             //读取输入
             for (int i = 0; i < N[a]; i++)
                 for (int j = 0; j < N[a]; j++)
-                    fscanf(fin, "%d,", &graph[i][j]);
+                {
+                    if (i == j)
+                        graph[i][j] = 0;
+                    else
+                    {
+                        int tempt;
+                        fscanf(fin, "%d,", &tempt);
+                        if (tempt != 0)
+                            graph[i][j] = tempt;
+                        else
+                            graph[i][j] = INT_MAX;
+                    }
+                }
 
             start = clock();
             // bellman_ford算法
@@ -88,30 +100,13 @@ void bellman_ford(int n)
         for (int j = 0; j < n; j++)
         {
             //进行松弛操作
-            if (graph[i][j] != 0 && dis[i] != INT_MAX && dis[j] > dis[i] + graph[i][j])
+            if (graph[i][j] != INT_MAX && dis[i] != INT_MAX && dis[j] > dis[i] + graph[i][j])
             {
                 dis[j] = dis[i] + graph[i][j];
                 road[j] = i;
             }
         }
     }
-
-    /*
-    int flag = 0;
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            //进行松弛操作
-            if (!graph[i][j] && dis[j] > dis[i] + graph[i][j])
-            {
-                flag = 1;
-                break;
-            }
-        }
-    }
-    return flag;
-    */
 }
 
 void output_road(int j, int flag)
