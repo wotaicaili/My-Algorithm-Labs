@@ -93,7 +93,7 @@ int main()
                     fresult << j
                             << ",";
                     fresult << dis[j]
-                            << ",";
+                            << ";";
                     output_road(j, 1);
                     fresult << endl;
                 }
