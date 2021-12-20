@@ -117,9 +117,9 @@ void bellman_ford(int n)
 // input:结点数目
 {
     dis[0] = 0; // 初始可达0
-    for (int i = 0; i < n; i++)
-    {
-        for (int k = 0; k < n; k++)
+    for (int k = 0; k < n; k++)
+        for (int i = 0; i < n; i++)
+        {
             for (int j = 0; j < n; j++)
             {
                 //进行松弛操作
@@ -128,9 +128,8 @@ void bellman_ford(int n)
                     dis[j] = dis[i] + graph[i][j];
                 }
             }
-    }
+        }
 }
-
 void dijkstra(int n, int i)
 // Dijkstra算法
 // input:结点数目,源点标号
