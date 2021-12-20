@@ -44,9 +44,9 @@ int main()
             //初始化
             memset(graph, 0, sizeof(graph));     //初始化graph
             memset(graph_new, 0, sizeof(graph)); //初始化graph_new
-            for (int i = 1; i <= N[a]; i++)      //初始化cost
+            for (int i = 0; i <= N[a]; i++)      //初始化cost
             {
-                for (int j = 1; j <= N[a]; j++)
+                for (int j = 0; j <= N[a]; j++)
                 {
                     if (i == j)
                         cost[i][j] = 0;
@@ -74,7 +74,10 @@ int main()
             start = clock();
             //创造虚拟的0号结点
             for (int j = 0; j <= N[a]; j++)
+            {
                 graph[0][j] = 0;
+                graph[j][0] = INT_MAX;
+            }
 
             // bellman_ford算法
             bellman_ford(N[a] + 1);
