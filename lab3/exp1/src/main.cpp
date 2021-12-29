@@ -59,23 +59,6 @@ int main()
                     else
                         graph[i][j] = INT_MAX;
                 }
-
-            /*
-            if (a == 1 && b == 1)
-            {
-                for (int i = 0; i < N[a]; i++)
-                    for (int j = 0; j < N[a]; j++)
-                    {
-                        if (graph[i][j] != INT_MAX)
-                            cout << graph[i][j] << " ";
-                        else
-                            cout << "X ";
-                        if (j == N[a] - 1)
-                            cout << endl;
-                    }
-            }
-            */
-
             start = clock();
             // bellman_ford算法
             bellman_ford(N[a]);
